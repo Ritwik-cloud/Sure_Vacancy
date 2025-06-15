@@ -103,6 +103,7 @@ import meetingImg from '../../assets/about-img.webp'
                   src={meetingImg}
                   alt="Team meeting"
                   className="w-full h-full object-cover"
+                  loading="lazy"
                 />
               </div>
               {/* Floating badge over image */}

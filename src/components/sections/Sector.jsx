@@ -2,11 +2,11 @@ import React, { memo } from "react";
 import { motion } from "framer-motion";
 import SectorCard from "../ui/SectorCard";
 import itImg from '../../assets/it.webp'
-import bpoImg from '../../assets/bpo.webp'
-import fmcgImg from '../../assets/fmcg.webp'
-import hardwareImg from '../../assets/hardware.webp'
+import retailImg from '../../assets/retail.webp'
 import realstateImg from '../../assets/realstate.webp'
-import textilemg from '../../assets/textile.webp'
+import logisticImg from '../../assets/logistic.webp'
+import hospitalityImg from '../../assets/hospitality.webp'
+import healthcareImg from '../../assets/healthcare .webp'
 
 const containerVariants = {
   hidden: {},
@@ -27,11 +27,11 @@ const cardVariants = {
 };
 
 const sectors = [
-  { title: "BPO", image: bpoImg, alt: "Business Process Outsourcing services" },
-  { title: "Textile", image: textilemg, alt: "Textile industry and manufacturing" },
-  { title: "FMCG", image: fmcgImg, alt: "Fast-moving consumer goods sector" },
+  { title: "Hospitality", image: hospitalityImg, alt: "Business Process Outsourcing services" },
+  { title: "Logistics", image: logisticImg, alt: "Textile industry and manufacturing" },
+  { title: "Retail", image: retailImg , alt: "Fast-moving consumer goods sector" },
   { title: "Real Estate", image: realstateImg, alt: "Real estate and property management" },
-  { title: "Hardware", image: hardwareImg, alt: "Computer hardware and electronics" },
+  { title: "Healtcare and Pharma", image: healthcareImg, alt: "Computer hardware and electronics" },
   { title: "IT and Software", image: itImg, alt: "Information technology and software development" },
 ];
 

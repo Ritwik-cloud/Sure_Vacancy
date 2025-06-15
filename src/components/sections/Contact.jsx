@@ -34,6 +34,31 @@ const Contact = () => {
     }
   };
 
+
+    const address = "Sure Vacancy, 1st floor - Rani Niwas 39, Lala Lajpat Rai Road, Ashrampara, Siliguri-734001, West Bengal";
+  
+  // Encode the address for URL
+  const encodedAddress = encodeURIComponent(address);
+  // With coordinates (more accurate)
+const lat = 26.721896478963988;
+const lng = 88.4304885999491;
+const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`;
+
+
+
+  const handleLocationClick = () => {
+  // For mobile devices, try to open native apps
+  if (/Android/i.test(navigator.userAgent)) {
+    window.open(`geo:0,0?q=${encodedAddress}`, '_blank');
+  } else if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+    window.open(`maps://maps.google.com/maps?q=${encodedAddress}`, '_blank');
+  } else {
+    // Fallback to web version
+    window.open(googleMapsUrl, '_blank');
+  }
+};
+
+
   // Handle input changes
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -253,15 +278,22 @@ const Contact = () => {
                       <MapPin className="h-6 w-6 text-purple-600 dark:text-purple-500" />
                     </div>
                   </div>
-                  <div className="flex-1">
-                    <h3 className="font-bold text-gray-900 dark:text-white mb-2">Visit Us</h3>
-                    <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">
-                      Sure Vacancy,<br />
-                      1st floor - Rani Niwas 39,<br />
-                      Lala Lajpat Rai Road, Ashrampara,<br />
-                      Siliguri-734001, West Bengal
-                    </p>
-                  </div>
+                 <div className="flex-1">
+      <h3 className="font-bold text-gray-900 dark:text-white mb-2">Visit Us</h3>
+      <div 
+        className="cursor-pointer group transition-all duration-200 hover:bg-gray-50 dark:hover:bg-gray-800 p-2 rounded-lg -m-2"
+        onClick={handleLocationClick}
+        title="Click to open in Google Maps"
+      >
+        <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+          Sure Vacancy,<br />
+          1st floor - Rani Niwas 39,<br />
+          Lala Lajpat Rai Road, Ashrampara,<br />
+          Siliguri-734001, West Bengal
+        </p>
+      </div>
+    </div>
+
                 </div>
               </motion.div>
 

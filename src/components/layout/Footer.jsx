@@ -10,6 +10,32 @@ import {
   Instagram,
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
+// import { MapPin } from 'lucide-react';
+
+  
+const address = "Sure Vacancy, 1st floor - Rani Niwas 39, Lala Lajpat Rai Road, Ashrampara, Siliguri-734001, West Bengal";
+const encodedAddress = encodeURIComponent(address);
+
+// With coordinates (more accurate)
+const lat = 26.721896478963988;
+const lng = 88.4304885999491;
+const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`;
+
+const handleLocationClick = () => {
+  // For mobile devices, try to open native apps
+  if (/Android/i.test(navigator.userAgent)) {
+    // Correct Android geo URL with your coordinates
+    window.open(`geo:${lat},${lng}?q=${lat},${lng}(Sure Vacancy)`, '_blank');
+  } else if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+    // Correct iOS Maps URL
+    window.open(`maps://?q=${lat},${lng}`, '_blank');
+  } else {
+    // Fallback to web version
+    window.open(googleMapsUrl, '_blank');
+  }
+};
+
+
 
 // Footer component for site-wide information and navigation
  const Footer = () => {
@@ -95,12 +121,15 @@ import { Link } from 'react-router-dom';
             <h3 className="text-lg font-semibold mb-6">Contact Us</h3>
             <div className="space-y-4">
               {/* Address */}
-              <div className="flex items-start">
-                <MapPin className="h-10 w-10 text-emerald-400 mr-3 mt-1" />
-                <p className="text-gray-400">Sure Vacancy,
-1st floor - Rani Niwas 39, 
-Lala Lajpat Rai Road, Ashrampara, Siliguri-734001, West Bengal</p>
-              </div>
+             <div 
+      className="flex items-start cursor-pointer hover:bg-gray-800 p-3 rounded-lg transition-colors"
+      onClick={handleLocationClick}
+    >
+      <MapPin className="h-10 w-10 text-emerald-400 mr-3 mt-1" />
+      <p className="text-gray-400 hover:text-emerald-400 transition-colors">
+        Sure Vacancy, 1st floor - Rani Niwas 39, Lala Lajpat Rai Road, Ashrampara, Siliguri-734001, West Bengal
+      </p>
+    </div>
               {/* Phone */}
               <div className="flex items-center">
                 <Phone className="h-5 w-5 text-emerald-400 mr-3" />
@@ -134,7 +163,7 @@ Lala Lajpat Rai Road, Ashrampara, Siliguri-734001, West Bengal</p>
         <span className="text-gray-500 text-sm">
           Developed by{" "}
           <a
-            href="https://wa.me/+916295962560" // <-- Replace with your WhatsApp number, e.g. 919876543210
+            href="https://wa.me/+916295962560" 
             target="_blank"
             rel="noopener noreferrer"
             className="text-emerald-400 hover:underline font-medium"

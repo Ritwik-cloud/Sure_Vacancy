@@ -12,6 +12,7 @@ const SectorCard = ({ title, image, alt }) => {
           src={image}
           alt={alt}
           className="w-full h-full object-cover"
+          loading="lazy"
         />
 
         {/* Dark overlay for readability and hover effect */}

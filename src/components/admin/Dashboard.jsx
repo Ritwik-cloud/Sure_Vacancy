@@ -29,7 +29,7 @@ export  const Dashboard = () => {
 
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
-  const limit = 20; // Jobs per page
+  const limit = 15; // Jobs per page
 
   // Fetch jobs from Appwrite on mount and whenever sector page changes
   useEffect(() => {
@@ -122,7 +122,7 @@ export  const Dashboard = () => {
   }
 
   return (
-    <div className="container mx-auto px-10 py-8 mt-10">
+    <div className="container mx-auto px-2 py-8 mt-10">
 
 
    {/* Sector filter */}
@@ -136,15 +136,15 @@ export  const Dashboard = () => {
           }}
           className="border rounded px-2 py-1 dark:bg-gray-800 dark:text-white"
         >
-          <option value="">All</option>
+         <option value="">All Sectors</option>
           <option value="Technology">Technology</option>
-          <option value="delhiveryBoy">It & Software</option>
-          <option value="fmcg">FMCG</option>
+          <option value="IT">IT</option>
+          <option value="FMCG">FMCG</option>
           <option value="Hotel">Hotel</option>
-          <option value="factory">Factory</option>
-          <option value="factory">Textile</option>
-          <option value="factory">RealState</option>
-          <option value="factory">Hardware</option>
+          <option value="Factory">Factory</option>
+          <option value="Textile">Textile</option>
+          <option value="RealEstate">Real Estate</option>
+          <option value="Hardware">Hardware</option>
           
         </select>
       </div>
@@ -201,24 +201,55 @@ export  const Dashboard = () => {
       )}
 
 
+
+
       {/* Pagination controls */}
-      <div className="pagination flex justify-center mt-8 gap-4">
-        <button
-          disabled={currentPage === 1}
-          onClick={() => setCurrentPage((p) => p - 1)}
-          className="px-4 py-2 rounded bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 disabled:opacity-50"
-        >
-          Previous
-        </button>
-        <span className="self-center">Page {currentPage}</span>
-        <button
-          onClick={() => setCurrentPage((p) => p + 1)}
-          disabled={jobs.length < limit}
-          className="px-4 py-2 rounded bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 disabled:opacity-50"
-        >
-          Next
-        </button>
-      </div>
+     <div className="pagination flex items-center justify-center mt-8 gap-3">
+  <button
+    disabled={currentPage === 1}
+    onClick={() => setCurrentPage((p) => p - 1)}
+    className="group relative px-5 py-2.5 rounded-lg bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 border border-gray-200 dark:border-gray-600 shadow-sm hover:shadow-md hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:shadow-sm disabled:hover:bg-white dark:disabled:hover:bg-gray-800 transition-all duration-200 ease-in-out"
+  >
+    <svg 
+      className="w-4 h-4 mr-2 inline-block transition-transform group-hover:-translate-x-0.5 group-disabled:translate-x-0" 
+      fill="none" 
+      stroke="currentColor" 
+      viewBox="0 0 24 24"
+    >
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+    </svg>
+    Previous
+  </button>
+  
+  <div className="flex items-center px-4 py-2.5 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-lg border border-blue-200 dark:border-blue-700/50">
+    <span className="text-sm font-medium text-gray-600 dark:text-gray-300">
+      Page
+    </span>
+    <span className="ml-2 px-2.5 py-1 bg-white dark:bg-gray-800 rounded-md text-blue-600 dark:text-blue-400 font-semibold text-sm border border-blue-200 dark:border-blue-600/50 shadow-sm">
+      {currentPage}
+    </span>
+  </div>
+  
+  <button
+    onClick={() => setCurrentPage((p) => p + 1)}
+    disabled={jobs.length < limit}
+    className="group relative px-5 py-2.5 rounded-lg bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 border border-gray-200 dark:border-gray-600 shadow-sm hover:shadow-md hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:shadow-sm disabled:hover:bg-white dark:disabled:hover:bg-gray-800 transition-all duration-200 ease-in-out"
+  >
+    Next
+    <svg 
+      className="w-4 h-4 ml-2 inline-block transition-transform group-hover:translate-x-0.5 group-disabled:translate-x-0" 
+      fill="none" 
+      stroke="currentColor" 
+      viewBox="0 0 24 24"
+    >
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+    </svg>
+  </button>
+</div>
+
+
+
+
       {/* Job Form Modal */}
       {(isFormOpen || editingJob) && (
         <JobForm
