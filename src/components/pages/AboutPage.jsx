@@ -221,7 +221,7 @@ const AboutPage = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.4 }}
               >
-                At SureVacancy, we're dedicated to transforming career aspirations into reality. Our team of expert consultants brings decades of industry experience to help professionals navigate their career paths with confidence.
+                At Sure Vacancy, we're dedicated to transforming career aspirations into reality. Our team of expert consultants brings decades of industry experience to help professionals navigate their career paths with confidence.
               </motion.p>
               
               <motion.p 
