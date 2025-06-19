@@ -138,7 +138,7 @@ import meetingImg from '../../assets/about-img.webp'
                 </h2>
                 <div className="w-24 h-1 bg-emerald-500 mb-6"></div>
                 <p className="text-lg text-gray-600 dark:text-gray-300 mb-6">
-                  At SureVacancy, we're dedicated to transforming career aspirations into reality. Our team of expert consultants brings decades of industry experience to help professionals navigate their career paths with confidence.
+                  At Sure Vacancy, we're dedicated to transforming career aspirations into reality. Our team of expert consultants brings decades of industry experience to help professionals navigate their career paths with confidence.
                 </p>
                 <p className="text-lg text-gray-600 dark:text-gray-300">
                   We understand that every career journey is unique, which is why we provide personalized guidance tailored to your specific goals and circumstances.

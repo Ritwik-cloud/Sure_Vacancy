@@ -5,7 +5,7 @@ import JobCard from '../ui/JobCard';
 import service from '../../appwrite/database'; 
 import LoadingSpinner from '../ui/LoadingSpinner';
 
-const jobCategories = ['All', 'IT & Software', 'Technology', 'Marketing', 'Finance', 'Pharmaceutical', 'Education', 'FMCG', 'Textile', 'RealState', 'Hardware'];
+const jobCategories = ['All', 'IT & Software', 'Technology', 'Marketing', 'Finance', 'Pharmaceutical', 'Education', 'FMCG', 'Textile', 'Real Estate', 'Hardware'];
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -233,7 +233,7 @@ const JobListings = () => {
                 <button
                   onClick={handleSearch}
                   disabled={searching}
-                  className="w-full px-6 py-3 bg-gradient-to-r from-teal-600 to-teal-700 hover:from-teal-700 hover:to-teal-800 dark:from-teal-500 dark:to-teal-600 dark:hover:from-teal-600 dark:hover:to-teal-700 text-white font-medium rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                  className="w-full px-6 py-3 bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 dark:from-emerald-500 dark:to-emerald-600 dark:hover:from-emerald-600 dark:hover:to-emerald-700 text-white font-medium rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
                 >
                   <div className="flex items-center justify-center gap-2">
                     {searching ? (

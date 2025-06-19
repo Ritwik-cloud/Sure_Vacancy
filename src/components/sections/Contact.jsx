@@ -78,7 +78,7 @@ const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${lat},${
       formDataToSend.append('_captcha', 'false');
       formDataToSend.append('_template', 'table');
       
-      const response = await fetch("https://formsubmit.co/ritwik.kmg1@gmail.com", {
+      const response = await fetch("https://formsubmit.co/surevacancy.hr@gmail.com", {
         method: "POST",
         body: formDataToSend,
       });

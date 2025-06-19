@@ -28,7 +28,7 @@ const Newsletter = () => {
 
       // AJAX POST to FormSubmit
       const response = await fetch(
-        "https://formsubmit.co/ajax/ritwik.kmg1@gmail.com",
+        "https://formsubmit.co/ajax/surevacancy.hr@gmail.com",
         {
           method: "POST",
           body: formData,

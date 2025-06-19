@@ -48,7 +48,7 @@ const handleLocationClick = () => {
           <div>
             <div className="flex items-center mb-6">
               <Briefcase className="h-8 w-8 text-emerald-400" />
-              <span className="ml-2 text-xl font-bold">SureVacancy</span>
+              <span className="ml-2 text-xl font-bold">Sure Vacancy</span>
             </div>
             <p className="text-gray-400 mb-6">
               Professional career guidance to help you navigate your career journey with confidence.

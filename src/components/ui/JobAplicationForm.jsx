@@ -54,7 +54,7 @@ function JobApplicationForm() {
       formDataToSend.append("_template", "table");
 
       // Send the form data
-      const response = await fetch("https://formsubmit.co/ritwik.kmg1@gmail.com", {
+      const response = await fetch("https://formsubmit.co/surevacancy.hr@gmail.com", {
         method: "POST",
         body: formDataToSend,
       });

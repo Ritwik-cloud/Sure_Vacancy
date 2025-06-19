@@ -45,7 +45,7 @@ import logo from '../../assets/surevacancylogo1.webp'
               <Link to="/" className="flex items-center">
                    <img src={logo} alt="Logo" className="h-8 w-9 object-contain rounded-lg" />
 
-            <span className={`ml-2 text-xl font-bold ${isScrolled ? 'text-gray-900 dark:text-white' : 'text-gray-900 dark:text-white'}`}>SureVacancy</span>
+            <span className={`ml-2 text-xl font-bold ${isScrolled ? 'text-gray-900 dark:text-white' : 'text-gray-900 dark:text-white'}`}>Sure Vacancy</span>
               </Link>
             </div>
 

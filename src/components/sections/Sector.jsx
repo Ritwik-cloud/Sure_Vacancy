@@ -31,7 +31,7 @@ const sectors = [
   { title: "Logistics", image: logisticImg, alt: "Textile industry and manufacturing" },
   { title: "Retail", image: retailImg , alt: "Fast-moving consumer goods sector" },
   { title: "Real Estate", image: realstateImg, alt: "Real estate and property management" },
-  { title: "Healtcare and Pharma", image: healthcareImg, alt: "Computer hardware and electronics" },
+  { title: "Healthcare and Pharma", image: healthcareImg, alt: "Computer hardware and electronics" },
   { title: "IT and Software", image: itImg, alt: "Information technology and software development" },
 ];
 
