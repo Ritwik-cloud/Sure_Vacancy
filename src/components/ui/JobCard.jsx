@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import { MapPin, Clock, IndianRupee, Briefcase } from 'lucide-react';
+import { MapPin, Clock, IndianRupee, Briefcase, User, IdCard } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 // JobCard component receives a "job" prop with job details
@@ -16,6 +16,7 @@ const JobCard = ({ job }) => {
     salary = 'Salary Not Disclosed',
     posted = 'Recently',
     sector = 'General',
+    experience = 'Not Disclosed',
     $id = null,
     id = null
   } = job;
@@ -43,7 +44,7 @@ const JobCard = ({ job }) => {
         {/* Briefcase icon and job title/company */}
         <div className="flex items-center mb-4">
           <div className="w-12 h-12 rounded-md bg-gray-100 dark:bg-gray-700 flex-shrink-0 flex items-center justify-center">
-            <Briefcase size={28} className="text-teal-600 dark:text-teal-400" aria-hidden="true" />
+            <IdCard size={28} className="text-teal-600 dark:text-teal-400" aria-hidden="true" />
           </div>
           <div className="ml-4 min-w-0 flex-1">
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white truncate">
@@ -62,6 +63,11 @@ const JobCard = ({ job }) => {
           <div className="flex items-center text-gray-600 dark:text-gray-300 text-sm">
             <IndianRupee size={16} className="mr-2 text-gray-400 flex-shrink-0" aria-hidden="true" />
             <span className="truncate">{salary}</span>
+          </div>
+
+          <div className="flex items-center text-gray-600 dark:text-gray-300 text-sm">
+            <Briefcase size={16} className="mr-2 text-gray-400 flex-shrink-0" aria-hidden="true" />
+            <span className="truncate">{experience}</span>
           </div>
           
           <div className="flex items-center text-gray-600 dark:text-gray-300 text-sm">

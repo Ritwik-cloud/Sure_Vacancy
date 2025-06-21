@@ -8,6 +8,7 @@ export default function AdminLogin() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
+console.log(error);
 
   const handleLogin = async (e) => {
     e.preventDefault();

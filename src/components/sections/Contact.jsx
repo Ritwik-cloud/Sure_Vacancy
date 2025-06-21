@@ -311,8 +311,7 @@ const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${lat},${
                   <div className="flex-1">
                     <h3 className="font-bold text-gray-900 dark:text-white mb-2">Business Hours</h3>
                     <div className="text-gray-600 dark:text-gray-300 text-sm space-y-1">
-                      <p>Monday - Friday: 9:00 AM - 6:00 PM</p>
-                      <p>Saturday: 10:00 AM - 4:00 PM</p>
+                      <p>Monday - Saturday: 10:00 AM - 8:00 PM</p>
                       <p>Sunday: Closed</p>
                     </div>
                   </div>

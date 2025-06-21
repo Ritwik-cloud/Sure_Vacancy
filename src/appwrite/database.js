@@ -14,7 +14,7 @@ export class Service{
 
 //  function for creating a job post
 
-      async createPost({title, sector, location, salary, description, datePosted}){
+      async createPost({title, sector, location, salary, description, experience, datePosted}){
                try {
                 return await this.databases.createDocument(
                     config.appwriteDatabaseId,
@@ -26,6 +26,7 @@ export class Service{
                         location, 
                         salary, 
                         description,
+                        experience,
                        datePosted: datePosted || new Date().toISOString(),
                       
 
@@ -39,7 +40,7 @@ export class Service{
 
 
 //  function for updating a job post
-      async updatePost( id, {title, sector, location, salary, description, datePosted}){
+      async updatePost( id, {title, sector, location, salary, description, experience, datePosted}){
                try {
                 return await this.databases.updateDocument(
                     config.appwriteDatabaseId,
@@ -51,6 +52,7 @@ export class Service{
                         location, 
                         salary, 
                         description,
+                        experience,
                         datePosted
 
                     }

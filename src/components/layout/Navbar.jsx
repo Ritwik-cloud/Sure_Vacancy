@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, Briefcase, Moon, Sun, Phone } from 'lucide-react';
 import NavLink from '../ui/NavLink';
 import { useTheme } from '../contexts/ThemeContext';
-import logo from '../../assets/surevacancylogo1.webp'
+import logo from '../../assets/surevacancylogo.webp'
 
 // import { LoginModal } from '../auth/LoginModal';
 // import { SignupModal } from '../auth/SignupModal';
@@ -43,7 +43,7 @@ import logo from '../../assets/surevacancylogo1.webp'
             {/* Logo and brand name */}
             <div className="flex items-center">
               <Link to="/" className="flex items-center">
-                   <img src={logo} alt="Logo" className="h-8 w-9 object-contain rounded-lg" />
+                   <img src={logo} alt="Logo" className="h-8 w-9 object-contain rounded-full" />
 
             <span className={`ml-2 text-xl font-bold ${isScrolled ? 'text-gray-900 dark:text-white' : 'text-gray-900 dark:text-white'}`}>Sure Vacancy</span>
               </Link>

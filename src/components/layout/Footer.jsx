@@ -10,6 +10,7 @@ import {
   Instagram,
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import logo from '../../assets/surevacancylogo.webp'
 // import { MapPin } from 'lucide-react';
 
   
@@ -47,7 +48,7 @@ const handleLocationClick = () => {
           {/* Company Info & Social */}
           <div>
             <div className="flex items-center mb-6">
-              <Briefcase className="h-8 w-8 text-emerald-400" />
+               <img src={logo} alt="Company Logo" className="h-9 w-9 rounded-full mr-2" />
               <span className="ml-2 text-xl font-bold">Sure Vacancy</span>
             </div>
             <p className="text-gray-400 mb-6">
@@ -125,7 +126,7 @@ const handleLocationClick = () => {
       className="flex items-start cursor-pointer hover:bg-gray-800 p-3 rounded-lg transition-colors"
       onClick={handleLocationClick}
     >
-      <MapPin className="h-10 w-10 text-emerald-400 mr-3 mt-1" />
+      
       <p className="text-gray-400 hover:text-emerald-400 transition-colors">
         Sure Vacancy, 1st floor - Rani Niwas 39, Lala Lajpat Rai Road, Ashrampara, Siliguri-734001, West Bengal
       </p>
