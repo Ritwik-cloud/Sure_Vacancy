@@ -1,5 +1,5 @@
 import React from 'react';
-import { Pencil, Trash2, MapPin,  Calendar, Briefcase, IndianRupee } from 'lucide-react';
+import { Pencil, Trash2, MapPin, Calendar, Briefcase, IndianRupee } from 'lucide-react';
 
 // JobList: Modern, beautiful table component with enhanced UI
 export const JobList = ({ jobs, onEdit, onDelete }) => {
@@ -15,40 +15,41 @@ export const JobList = ({ jobs, onEdit, onDelete }) => {
 
       {/* Table Container */}
       <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
-        <table className="w-full divide-y divide-gray-200 dark:divide-gray-700">
+        <div className="overflow-x-auto">
+          <table className="w-full min-w-max divide-y divide-gray-200 dark:divide-gray-700">
             <thead className="bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-700">
               <tr>
-                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-700 dark:text-gray-200 uppercase tracking-wider">
+                <th className="px-4 py-4 text-left text-xs font-semibold text-gray-700 dark:text-gray-200 uppercase tracking-wider min-w-[150px]">
                   Position
                 </th>
-                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-700 dark:text-gray-200 uppercase tracking-wider">
+                <th className="px-4 py-4 text-left text-xs font-semibold text-gray-700 dark:text-gray-200 uppercase tracking-wider min-w-[120px]">
                   <div className="flex items-center gap-2">
                     <Briefcase className="h-4 w-4" />
                     Sector
                   </div>
                 </th>
-                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-700 dark:text-gray-200 uppercase tracking-wider">
+                <th className="px-4 py-4 text-left text-xs font-semibold text-gray-700 dark:text-gray-200 uppercase tracking-wider min-w-[120px]">
                   <div className="flex items-center gap-2">
                     <MapPin className="h-4 w-4" />
                     Location
                   </div>
                 </th>
-                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-700 dark:text-gray-200 uppercase tracking-wider">
+                <th className="px-4 py-4 text-left text-xs font-semibold text-gray-700 dark:text-gray-200 uppercase tracking-wider min-w-[100px]">
                   <div className="flex items-center gap-2">
                     <IndianRupee className="h-4 w-4" />
                     Salary
                   </div>
                 </th>
-                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-700 dark:text-gray-200 uppercase tracking-wider">
+                <th className="px-4 py-4 text-left text-xs font-semibold text-gray-700 dark:text-gray-200 uppercase tracking-wider min-w-[100px]">
                   <div className="flex items-center gap-2">
                     <Calendar className="h-4 w-4" />
                     Posted
                   </div>
                 </th>
-                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-700 dark:text-gray-200 uppercase tracking-wider">
+                <th className="px-4 py-4 text-left text-xs font-semibold text-gray-700 dark:text-gray-200 uppercase tracking-wider min-w-[200px]">
                   Description
                 </th>
-                <th className="px-6 py-4 text-center text-xs font-semibold text-gray-700 dark:text-gray-200 uppercase tracking-wider">
+                <th className="px-4 py-4 text-center text-xs font-semibold text-gray-700 dark:text-gray-200 uppercase tracking-wider min-w-[100px] sticky right-0 bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-700">
                   Actions
                 </th>
               </tr>
@@ -57,59 +58,53 @@ export const JobList = ({ jobs, onEdit, onDelete }) => {
               {jobs.map((job, index) => (
                 <tr 
                   key={job.$id} 
-                  className="border-b border-gray-200 dark:border-gray-700"
+                  className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
                 >
-                  <td className="px-6 py-4 whitespace-nowrap">
+                  <td className="px-4 py-4 whitespace-nowrap">
                     <div className="flex flex-col">
                       <div className="text-sm font-semibold text-gray-900 dark:text-white">
                         {job.title}
                       </div>
                     </div>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
+                  <td className="px-4 py-4 whitespace-nowrap">
                     <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">
                       {job.sector}
                     </span>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">
+                  <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">
                     {job.location}
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
+                  <td className="px-4 py-4 whitespace-nowrap">
                     <span className="text-sm font-semibold text-green-600 dark:text-green-400">
                       {job.salary}
                     </span>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+                  <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
                     {job.datePosted ? new Date(job.datePosted).toLocaleDateString() : '—'}
                   </td>
-                  <td className="px-6 py-4">
+                  <td className="px-4 py-4">
                     <div className="max-w-xs">
-                      <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2" title={job.description}>
+                      <p className="text-sm text-gray-600 dark:text-gray-400 truncate" title={job.description}>
                         {job.description}
                       </p>
                     </div>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-center">
-                    <div className="flex items-center justify-center space-x-2">
+                  <td className="px-4 py-4 whitespace-nowrap sticky right-0 bg-white dark:bg-gray-900">
+                    <div className="flex items-center justify-center gap-2">
                       <button
                         onClick={() => onEdit(job)}
-                        className="group/btn relative inline-flex items-center justify-center p-2 text-emerald-600 hover:text-white bg-emerald-50 hover:bg-emerald-500 dark:bg-emerald-900/20 dark:hover:bg-emerald-500 rounded-lg transition-all duration-200 hover:scale-110 hover:shadow-lg"
+                        className="inline-flex items-center justify-center w-8 h-8 text-blue-600 hover:text-white bg-blue-50 hover:bg-blue-500 dark:bg-blue-900/20 dark:hover:bg-blue-500 rounded-lg transition-colors duration-200"
                         title="Edit Job"
                       >
                         <Pencil className="h-4 w-4" />
-                        <span className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-gray-900 text-white text-xs px-2 py-1 rounded opacity-0 group-hover/btn:opacity-100 transition-opacity whitespace-nowrap">
-                          Edit
-                        </span>
                       </button>
                       <button
                         onClick={() => onDelete(job.$id)}
-                        className="group/btn relative inline-flex items-center justify-center p-2 text-red-600 hover:text-white bg-red-50 hover:bg-red-500 dark:bg-red-900/20 dark:hover:bg-red-500 rounded-lg transition-all duration-200 hover:scale-110 hover:shadow-lg"
+                        className="inline-flex items-center justify-center w-8 h-8 text-red-600 hover:text-white bg-red-50 hover:bg-red-500 dark:bg-red-900/20 dark:hover:bg-red-500 rounded-lg transition-colors duration-200"
                         title="Delete Job"
                       >
                         <Trash2 className="h-4 w-4" />
-                        <span className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-gray-900 text-white text-xs px-2 py-1 rounded opacity-0 group-hover/btn:opacity-100 transition-opacity whitespace-nowrap">
-                          Delete
-                        </span>
                       </button>
                     </div>
                   </td>
@@ -117,20 +112,21 @@ export const JobList = ({ jobs, onEdit, onDelete }) => {
               ))}
             </tbody>
           </table>
-
-          {/* Empty State */}
-          {jobs.length === 0 && (
-            <div className="text-center py-16">
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-gray-100 dark:bg-gray-800 rounded-full mb-4">
-                <Briefcase className="h-8 w-8 text-gray-400" />
-              </div>
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">No jobs found</h3>
-              <p className="text-gray-500 dark:text-gray-400 max-w-sm mx-auto">
-                Get started by creating your first job listing.
-              </p>
-            </div>
-          )}
         </div>
+
+        {/* Empty State */}
+        {jobs.length === 0 && (
+          <div className="text-center py-16">
+            <div className="inline-flex items-center justify-center w-16 h-16 bg-gray-100 dark:bg-gray-800 rounded-full mb-4">
+              <Briefcase className="h-8 w-8 text-gray-400" />
+            </div>
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">No jobs found</h3>
+            <p className="text-gray-500 dark:text-gray-400 max-w-sm mx-auto">
+              Get started by creating your first job listing.
+            </p>
+          </div>
+        )}
+      </div>
 
       {/* Footer Stats */}
       {jobs.length > 0 && (
