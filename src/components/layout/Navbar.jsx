@@ -82,7 +82,7 @@ import logo from '../../assets/surevacancylogo.webp'
 
 
                   <a
-            href="tel:+919876543210"
+            href="tel:+919332344995"
            className="w-full flex items-center justify-center gap-2 py-2 px-3 bg-emerald-600 text-white rounded-md hover:bg-emerald-700 transition-colors shadow-sm"
             >
            <Phone className="w-5 h-4" />
@@ -178,7 +178,7 @@ import logo from '../../assets/surevacancylogo.webp'
               </button> */}
 
                              <a
-            href="tel:+919876543210"
+            href="tel:+919332344995"
            className="w-full flex items-center justify-center gap-2 py-3 px-3 bg-emerald-600 text-white rounded-md hover:bg-emerald-700 transition-colors shadow-sm"
             >
            <Phone className="w-5 h-4" />
