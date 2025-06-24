@@ -42,7 +42,11 @@ const JobListings = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalJobs, setTotalJobs] = useState(0);
   const [hasMore, setHasMore] = useState(true);
+  const [isSearchActive, setIsSearchActive] = useState(false); // New state to track if search is active
   const limit = 10; // jobs per page
+
+  // Check if search inputs are empty
+  const isSearchDisabled = !searchTerm.trim() && !locationTerm.trim();
 
   // Main function to fetch jobs from the API with filters and pagination
   const fetchJobs = useCallback(async () => {
@@ -50,10 +54,18 @@ const JobListings = () => {
     try {
       // Build query parameters for API request
       const params = {
-        limit,
-        offset: (currentPage - 1) * limit,
         latest: true, // for sorting by latest
       };
+      
+      // If search is active, get all matching results without pagination
+      if (isSearchActive) {
+        params.limit = 1000; // Set a high limit to get all results
+        params.offset = 0;
+      } else {
+        // Normal pagination for browsing
+        params.limit = limit;
+        params.offset = (currentPage - 1) * limit;
+      }
       
       // Add category filter if not 'All'
       if (selectedCategory !== 'All') {
@@ -75,7 +87,13 @@ const JobListings = () => {
       
       setJobs(fetchedJobs);
       setTotalJobs(response.total || 0);
-      setHasMore(fetchedJobs.length === limit);
+      
+      // Update hasMore based on whether we're searching or paginating
+      if (isSearchActive) {
+        setHasMore(false); // No pagination when searching
+      } else {
+        setHasMore(fetchedJobs.length === limit);
+      }
       
     } catch (error) {
       console.error('Failed to fetch jobs:', error);
@@ -85,7 +103,7 @@ const JobListings = () => {
     }
     setLoading(false);
     setSearching(false);
-  }, [selectedCategory, activeSearchTerm, activeLocationTerm, currentPage, limit]);
+  }, [selectedCategory, activeSearchTerm, activeLocationTerm, currentPage, limit, isSearchActive]);
 
   // Fetch jobs when dependencies change
   useEffect(() => {
@@ -99,27 +117,31 @@ const JobListings = () => {
     }
   }, [selectedCategory, activeSearchTerm, activeLocationTerm]);
 
-  // Filter jobs on frontend if backend search is not implemented
+  // Filter jobs on frontend if backend search is not comprehensive enough
   const displayJobs = React.useMemo(() => {
     if (!activeSearchTerm.trim() && !activeLocationTerm.trim()) {
       return jobs;
     }
     
-    // Only filter on frontend if backend search is not implemented
+    // Apply additional frontend filtering for better results
     const searchLower = activeSearchTerm.toLowerCase();
     const locationLower = activeLocationTerm.toLowerCase();
     
     return jobs.filter(job => {
-      const title = job.title || '';
-      const location = job.location || '';
-      const company = job.company || '';
+      const title = (job.title || '').toLowerCase();
+      const location = (job.location || '').toLowerCase();
+      const company = (job.company || '').toLowerCase();
+      const description = (job.description || '').toLowerCase();
+      const skills = (job.skills || []).join(' ').toLowerCase();
       
       const matchesSearch = !activeSearchTerm.trim() || 
-        title.toLowerCase().includes(searchLower) || 
-        company.toLowerCase().includes(searchLower);
+        title.includes(searchLower) || 
+        company.includes(searchLower) ||
+        description.includes(searchLower) ||
+        skills.includes(searchLower);
       
       const matchesLocation = !activeLocationTerm.trim() || 
-        location.toLowerCase().includes(locationLower);
+        location.includes(locationLower);
       
       return matchesSearch && matchesLocation;
     });
@@ -128,18 +150,39 @@ const JobListings = () => {
   // Handle category selection change
   const handleCategoryChange = (category) => {
     setSelectedCategory(category);
+    // Reset search state when category changes
+    if (category !== 'All') {
+      setIsSearchActive(false);
+    }
   };
 
   // Handle search button click - activates the search filters
   const handleSearch = () => {
+    // Prevent search if both inputs are empty
+    if (isSearchDisabled) {
+      return;
+    }
+    
     setSearching(true);
     setActiveSearchTerm(searchTerm);
     setActiveLocationTerm(locationTerm);
+    setIsSearchActive(searchTerm.trim() !== '' || locationTerm.trim() !== ''); // Set search active if there are search terms
+    setCurrentPage(1); // Reset to first page
+  };
+
+  // Handle clearing search
+  const handleClearSearch = () => {
+    setSearchTerm('');
+    setLocationTerm('');
+    setActiveSearchTerm('');
+    setActiveLocationTerm('');
+    setIsSearchActive(false);
+    setCurrentPage(1);
   };
 
   // Handle Enter key press in search inputs
   const handleKeyPress = (e) => {
-    if (e.key === 'Enter') {
+    if (e.key === 'Enter' && !isSearchDisabled) {
       handleSearch();
     }
   };
@@ -196,7 +239,7 @@ const JobListings = () => {
                 <div className="relative">
                   <input
                     type="text"
-                    placeholder="e.g. Sales Executive"
+                    placeholder="e.g. Sales Executive, Developer, Manager"
                     className="w-full px-4 py-3 pl-10 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 border border-gray-300 dark:border-gray-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500 dark:focus:ring-teal-400 focus:border-transparent transition-all duration-200 shadow-sm"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
@@ -216,7 +259,7 @@ const JobListings = () => {
                 <div className="relative">
                   <input
                     type="text"
-                    placeholder="e.g. Siliguri"
+                    placeholder="e.g. Siliguri, Mumbai, Delhi"
                     className="w-full px-4 py-3 pl-10 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 border border-gray-300 dark:border-gray-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500 dark:focus:ring-teal-400 focus:border-transparent transition-all duration-200 shadow-sm"
                     value={locationTerm}
                     onChange={(e) => setLocationTerm(e.target.value)}
@@ -232,8 +275,12 @@ const JobListings = () => {
               <div className="flex flex-col justify-end">
                 <button
                   onClick={handleSearch}
-                  disabled={searching}
-                  className="w-full px-6 py-3 bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 dark:from-emerald-500 dark:to-emerald-600 dark:hover:from-emerald-600 dark:hover:to-emerald-700 text-white font-medium rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                  disabled={searching || isSearchDisabled}
+                  className={`w-full px-6 py-3 text-white font-medium rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition-all duration-200 shadow-lg transform ${
+                    isSearchDisabled 
+                      ? 'bg-gray-400 dark:bg-gray-600 cursor-not-allowed opacity-50' 
+                      : 'bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 dark:from-emerald-500 dark:to-emerald-600 dark:hover:from-emerald-600 dark:hover:to-emerald-700 hover:shadow-xl hover:-translate-y-0.5'
+                  } ${searching ? 'opacity-50 cursor-not-allowed transform-none' : ''}`}
                 >
                   <div className="flex items-center justify-center gap-2">
                     {searching ? (
@@ -248,32 +295,49 @@ const JobListings = () => {
               </div>
             </div>
             
-            {/* Category Filter - Now below search inputs */}
-            <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-600">
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                Category
-              </label>
-              <div className="relative max-w-xs">
-                <select
-                  className="w-full appearance-none px-4 py-2.5 pl-10 bg-white dark:bg-gray-700 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500 dark:focus:ring-teal-400 focus:border-transparent transition-all duration-200 shadow-sm"
-                  value={selectedCategory}
-                  onChange={(e) => handleCategoryChange(e.target.value)}
-                >
-                  {jobCategories.map((category) => (
-                    <option key={category} value={category}>
-                      {category}
-                    </option>
-                  ))}
-                </select>
-                <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500">
-                  <Filter size={16} />
-                </div>
-                <div className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500 pointer-events-none">
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
-                  </svg>
+            {/* Category Filter and Clear Search - Now below search inputs */}
+            <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-600 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+              <div className="relative">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  Category
+                </label>
+                <div className="relative max-w-xs">
+                  <select
+                    className="w-full appearance-none px-4 py-2.5 pl-10 bg-white dark:bg-gray-700 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500 dark:focus:ring-teal-400 focus:border-transparent transition-all duration-200 shadow-sm"
+                    value={selectedCategory}
+                    onChange={(e) => handleCategoryChange(e.target.value)}
+                  >
+                    {jobCategories.map((category) => (
+                      <option key={category} value={category}>
+                        {category}
+                      </option>
+                    ))}
+                  </select>
+                  <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500">
+                    <Filter size={16} />
+                  </div>
+                  <div className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500 pointer-events-none">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </div>
                 </div>
               </div>
+              
+              {/* Clear Search Button */}
+              {isSearchActive && (
+                <div className="flex flex-col justify-end">
+                  <label className="block text-sm font-medium text-transparent mb-2 sm:mb-2">
+                    &nbsp;
+                  </label>
+                  <button
+                    onClick={handleClearSearch}
+                    className="px-4 py-2.5 bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 font-medium rounded-xl transition-all duration-200 shadow-sm"
+                  >
+                    Clear Search
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </motion.div>
@@ -308,8 +372,13 @@ const JobListings = () => {
             >
               <div className="bg-gray-50 dark:bg-gray-800 rounded-lg px-4 py-3 inline-block">
                 <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400">
-                  <span className="font-semibold text-gray-900 dark:text-white">{displayJobs.length}</span> of{' '}
-                  <span className="font-semibold text-gray-900 dark:text-white">{totalJobs}</span> jobs found
+                  <span className="font-semibold text-gray-900 dark:text-white">{displayJobs.length}</span>
+                  {!isSearchActive && totalJobs > displayJobs.length && (
+                    <>
+                      {' '}of <span className="font-semibold text-gray-900 dark:text-white">{totalJobs}</span>
+                    </>
+                  )}
+                  {' '}jobs {isSearchActive ? 'found' : 'showing'}
                   {selectedCategory !== 'All' && (
                     <span className="ml-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-teal-100 text-teal-800 dark:bg-teal-900 dark:text-teal-200">
                       {selectedCategory}
@@ -344,42 +413,44 @@ const JobListings = () => {
               ))}
             </motion.div>
 
-            {/* Enhanced Pagination */}
-            <motion.div 
-              className="flex flex-col sm:flex-row justify-center items-center mt-12 gap-4"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
-              <div className="flex items-center gap-2">
-                <button
-                  disabled={currentPage === 1}
-                  onClick={handlePreviousPage}
-                  className="px-4 sm:px-6 py-2 sm:py-3 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 hover:border-gray-300 dark:hover:border-gray-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 shadow-sm hover:shadow-md font-medium"
-                >
-                  <span className="hidden sm:inline">Previous</span>
-                  <span className="sm:hidden">Prev</span>
-                </button>
-                
-                <div className="px-4 py-2 bg-teal-50 dark:bg-teal-900/20 text-teal-700 dark:text-teal-300 rounded-xl font-medium min-w-[100px] text-center">
-                  Page {currentPage}
+            {/* Enhanced Pagination - Only show when not searching */}
+            {!isSearchActive && (
+              <motion.div 
+                className="flex flex-col sm:flex-row justify-center items-center mt-12 gap-4"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+              >
+                <div className="flex items-center gap-2">
+                  <button
+                    disabled={currentPage === 1}
+                    onClick={handlePreviousPage}
+                    className="px-4 sm:px-6 py-2 sm:py-3 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 hover:border-gray-300 dark:hover:border-gray-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 shadow-sm hover:shadow-md font-medium"
+                  >
+                    <span className="hidden sm:inline">Previous</span>
+                    <span className="sm:hidden">Prev</span>
+                  </button>
+                  
+                  <div className="px-4 py-2 bg-teal-50 dark:bg-teal-900/20 text-teal-700 dark:text-teal-300 rounded-xl font-medium min-w-[100px] text-center">
+                    Page {currentPage}
+                  </div>
+                  
+                  <button
+                    onClick={handleNextPage}
+                    disabled={!hasMore}
+                    className="px-4 sm:px-6 py-2 sm:py-3 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 hover:border-gray-300 dark:hover:border-gray-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 shadow-sm hover:shadow-md font-medium"
+                  >
+                    Next
+                  </button>
                 </div>
                 
-                <button
-                  onClick={handleNextPage}
-                  disabled={!hasMore}
-                  className="px-4 sm:px-6 py-2 sm:py-3 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 hover:border-gray-300 dark:hover:border-gray-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 shadow-sm hover:shadow-md font-medium"
-                >
-                  Next
-                </button>
-              </div>
-              
-              {totalJobs > limit && (
-                <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-2 sm:mt-0">
-                  {Math.min(currentPage * limit, totalJobs)} of {totalJobs} jobs
-                </p>
-              )}
-            </motion.div>
+                {totalJobs > limit && (
+                  <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-2 sm:mt-0">
+                    {Math.min(currentPage * limit, totalJobs)} of {totalJobs} jobs
+                  </p>
+                )}
+              </motion.div>
+            )}
           </>
         )}
       </div>
