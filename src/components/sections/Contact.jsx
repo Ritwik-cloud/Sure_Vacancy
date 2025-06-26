@@ -4,7 +4,7 @@ import { Mail, Phone, MapPin, Send, Clock, CheckCircle } from 'lucide-react';
 import { useNavigate } from "react-router-dom";
 
 const Contact = () => {
-  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  const [formData, setFormData] = useState({ name: "", email: "", mobile: "", message: "" });
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
@@ -74,6 +74,7 @@ const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${lat},${
       const formDataToSend = new FormData();
       formDataToSend.append('name', formData.name);
       formDataToSend.append('email', formData.email);
+      formDataToSend.append('mobile', formData.mobile);
       formDataToSend.append('message', formData.message);
       formDataToSend.append('_captcha', 'false');
       formDataToSend.append('_template', 'table');
@@ -85,7 +86,7 @@ const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${lat},${
 
       if (response.ok) {
         setSubmitted(true);
-        setFormData({ name: "", email: "", message: "" });
+        setFormData({ name: "", email: "", mobile: "", message: "" });
         navigate("/thank-you");   
       } else {
         throw new Error('Form submission failed');
@@ -175,10 +176,29 @@ const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${lat},${
                   </div>
                 </div>
 
+                {/* Mobile Number field - Full width */}
+                <div>
+                  <label htmlFor="mobile" className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">
+                    Mobile Number *
+                  </label>
+                  <input
+                    type="tel"
+                    id="mobile"
+                    name="mobile"
+                    value={formData.mobile}
+                    onChange={handleChange}
+                    className="w-full px-4 py-4 rounded-xl border-2 border-gray-200 dark:border-gray-600 focus:ring-2 focus:ring-emerald-500 dark:focus:ring-emerald-600 focus:border-emerald-500 dark:focus:border-emerald-600 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white transition-all duration-200 placeholder-gray-400 dark:placeholder-gray-500"
+                    placeholder="Enter your mobile number"
+                    pattern="[+]?[0-9\s\-\(\)]+"
+                    title="Please enter a valid mobile number"
+                    required
+                  />
+                </div>
+
                 {/* Message field */}
                 <div>
                   <label htmlFor="message" className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">
-                    Your Message *
+                    Your Message 
                   </label>
                   <textarea
                     id="message"
@@ -188,7 +208,7 @@ const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${lat},${
                     rows={6}
                     className="w-full px-4 py-4 rounded-xl border-2 border-gray-200 dark:border-gray-600 focus:ring-2 focus:ring-emerald-500 dark:focus:ring-emerald-600 focus:border-emerald-500 dark:focus:border-emerald-600 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white resize-none transition-all duration-200 placeholder-gray-400 dark:placeholder-gray-500"
                     placeholder="Tell us how we can help you..."
-                    required
+                  
                   ></textarea>
                 </div>
 
