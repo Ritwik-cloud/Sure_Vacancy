@@ -150,7 +150,7 @@ const handleLocationClick = () => {
   <div className="flex flex-col md:flex-row justify-between items-center">
     {/* Copyright */}
     <p className="text-gray-500 text-sm">
-      &copy; {new Date().getFullYear()} SureVacancy. All rights reserved.
+      &copy; {new Date().getFullYear()} Sure Vacancy. All rights reserved.
     </p>
     {/* Policy links */}
     <div className="flex flex-col md:flex-row md:items-center md:space-x-4 mt-4 md:mt-0 space-y-2 md:space-y-0">
@@ -160,7 +160,7 @@ const handleLocationClick = () => {
         <a href="#" className="text-gray-500 hover:text-emerald-400 text-sm">Cookie Policy</a>
       </div>
       {/* Developed by */}
-      <div className="mt-2 md:mt-0">
+      {/* <div className="mt-2 md:mt-0">
         <span className="text-gray-500 text-sm">
           Developed by{" "}
           <a
@@ -172,7 +172,7 @@ const handleLocationClick = () => {
             Ritwik
           </a>
         </span>
-      </div>
+      </div> */}
     </div>
   </div>
 </div>

@@ -175,7 +175,7 @@ function JobApplicationForm() {
         disabled={isSubmitting}
         className="w-full py-3 px-6 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg font-medium transition-colors duration-200"
       >
-        {isSubmitting ? "Submitting..." : "Apply Now"}
+        {isSubmitting ? "Submitting..." : "Submit"}
       </button>
     </form>
   );
