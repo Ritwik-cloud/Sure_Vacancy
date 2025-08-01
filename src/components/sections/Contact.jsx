@@ -1,10 +1,15 @@
-import React, { memo, useState } from 'react';
-import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, Send, Clock, CheckCircle } from 'lucide-react';
+import React, { memo, useState } from "react";
+import { motion } from "framer-motion";
+import { Mail, Phone, MapPin, Send, Clock, CheckCircle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 const Contact = () => {
-  const [formData, setFormData] = useState({ name: "", email: "", mobile: "", message: "" });
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    mobile: "",
+    message: "",
+  });
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
@@ -16,9 +21,9 @@ const Contact = () => {
       opacity: 1,
       transition: {
         staggerChildren: 0.2,
-        delayChildren: 0.3
-      }
-    }
+        delayChildren: 0.3,
+      },
+    },
   };
 
   // Animation variants for each item
@@ -29,35 +34,32 @@ const Contact = () => {
       y: 0,
       transition: {
         duration: 0.6,
-        ease: "easeOut"
-      }
-    }
+        ease: "easeOut",
+      },
+    },
   };
 
+  const address =
+    "Sure Vacancy, 1st floor - Rani Niwas 39, Lala Lajpat Rai Road, Ashrampara, Siliguri-734001, West Bengal";
 
-    const address = "Sure Vacancy, 1st floor - Rani Niwas 39, Lala Lajpat Rai Road, Ashrampara, Siliguri-734001, West Bengal";
-  
   // Encode the address for URL
   const encodedAddress = encodeURIComponent(address);
   // With coordinates (more accurate)
-const lat = 26.721896478963988;
-const lng = 88.4304885999491;
-const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`;
-
-
+  const lat = 26.721896478963988;
+  const lng = 88.4304885999491;
+  const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`;
 
   const handleLocationClick = () => {
-  // For mobile devices, try to open native apps
-  if (/Android/i.test(navigator.userAgent)) {
-    window.open(`geo:0,0?q=${encodedAddress}`, '_blank');
-  } else if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
-    window.open(`maps://maps.google.com/maps?q=${encodedAddress}`, '_blank');
-  } else {
-    // Fallback to web version
-    window.open(googleMapsUrl, '_blank');
-  }
-};
-
+    // For mobile devices, try to open native apps
+    if (/Android/i.test(navigator.userAgent)) {
+      window.open(`geo:0,0?q=${encodedAddress}`, "_blank");
+    } else if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+      window.open(`maps://maps.google.com/maps?q=${encodedAddress}`, "_blank");
+    } else {
+      // Fallback to web version
+      window.open(googleMapsUrl, "_blank");
+    }
+  };
 
   // Handle input changes
   const handleChange = (e) => {
@@ -68,31 +70,34 @@ const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${lat},${
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
+
     try {
       // Create FormData object for FormSubmit.co
       const formDataToSend = new FormData();
-      formDataToSend.append('name', formData.name);
-      formDataToSend.append('email', formData.email);
-      formDataToSend.append('mobile', formData.mobile);
-      formDataToSend.append('message', formData.message);
-      formDataToSend.append('_captcha', 'false');
-      formDataToSend.append('_template', 'table');
-      
-      const response = await fetch("https://formsubmit.co/surevacancy.hr@gmail.com", {
-        method: "POST",
-        body: formDataToSend,
-      });
+      formDataToSend.append("name", formData.name);
+      formDataToSend.append("email", formData.email);
+      formDataToSend.append("mobile", formData.mobile);
+      formDataToSend.append("message", formData.message);
+      formDataToSend.append("_captcha", "false");
+      formDataToSend.append("_template", "table");
+
+      const response = await fetch(
+        "https://formsubmit.co/surevacancy.hr@gmail.com",
+        {
+          method: "POST",
+          body: formDataToSend,
+        }
+      );
 
       if (response.ok) {
         setSubmitted(true);
         setFormData({ name: "", email: "", mobile: "", message: "" });
-        navigate("/thank-you");   
+        navigate("/thank-you");
       } else {
-        throw new Error('Form submission failed');
+        throw new Error("Form submission failed");
       }
     } catch (error) {
-      console.error('Error:', error);
+      console.error("Error:", error);
       alert("There was an error sending your message! Please try again.");
     } finally {
       setIsSubmitting(false);
@@ -100,10 +105,13 @@ const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${lat},${
   };
 
   return (
-    <section id="contact" className="py-20 bg-gradient-to-br from-gray-50 via-white to-emerald-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+    <section
+      id="contact"
+      className="py-20 bg-gradient-to-br from-gray-50 via-white to-emerald-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900"
+    >
       <div className="container mx-auto px-4 md:px-6 max-w-7xl">
         {/* Section header */}
-        <motion.div 
+        <motion.div
           className="max-w-3xl mx-auto text-center mb-16"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -121,14 +129,14 @@ const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${lat},${
 
         <div className="grid lg:grid-cols-3 gap-12 items-start">
           {/* Left side: Contact form - Takes 2 columns on large screens */}
-          <motion.div 
+          <motion.div
             className="lg:col-span-2"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
             variants={containerVariants}
           >
-            <motion.div 
+            <motion.div
               className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 md:p-10 border border-gray-100 dark:border-gray-700"
               variants={itemVariants}
             >
@@ -137,15 +145,23 @@ const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${lat},${
                   Send us a Message
                 </h3>
                 <p className="text-gray-600 dark:text-gray-300">
-                  Fill out the form below and we'll get back to you as soon as possible.
+                  Fill out the form below and we'll get back to you as soon as
+                  possible.
                 </p>
               </div>
 
-              <motion.form onSubmit={handleSubmit} className="space-y-6" variants={itemVariants}>
+              <motion.form
+                onSubmit={handleSubmit}
+                className="space-y-6"
+                variants={itemVariants}
+              >
                 {/* Name and Email fields */}
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
-                    <label htmlFor="name" className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">
+                    <label
+                      htmlFor="name"
+                      className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3"
+                    >
                       Your Name *
                     </label>
                     <input
@@ -160,7 +176,10 @@ const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${lat},${
                     />
                   </div>
                   <div>
-                    <label htmlFor="email" className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">
+                    <label
+                      htmlFor="email"
+                      className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3"
+                    >
                       Your Email *
                     </label>
                     <input
@@ -178,7 +197,10 @@ const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${lat},${
 
                 {/* Mobile Number field - Full width */}
                 <div>
-                  <label htmlFor="mobile" className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">
+                  <label
+                    htmlFor="mobile"
+                    className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3"
+                  >
                     Mobile Number *
                   </label>
                   <input
@@ -197,8 +219,11 @@ const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${lat},${
 
                 {/* Message field */}
                 <div>
-                  <label htmlFor="message" className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">
-                    Your Message 
+                  <label
+                    htmlFor="message"
+                    className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3"
+                  >
+                    Your Message
                   </label>
                   <textarea
                     id="message"
@@ -208,7 +233,6 @@ const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${lat},${
                     rows={6}
                     className="w-full px-4 py-4 rounded-xl border-2 border-gray-200 dark:border-gray-600 focus:ring-2 focus:ring-emerald-500 dark:focus:ring-emerald-600 focus:border-emerald-500 dark:focus:border-emerald-600 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white resize-none transition-all duration-200 placeholder-gray-400 dark:placeholder-gray-500"
                     placeholder="Tell us how we can help you..."
-                  
                   ></textarea>
                 </div>
 
@@ -237,7 +261,7 @@ const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${lat},${
           </motion.div>
 
           {/* Right side: Contact info and additional details */}
-          <motion.div 
+          <motion.div
             className="space-y-8"
             initial="hidden"
             whileInView="visible"
@@ -247,7 +271,7 @@ const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${lat},${
             {/* Contact info cards */}
             <motion.div className="space-y-6" variants={containerVariants}>
               {/* Email card */}
-              <motion.div 
+              <motion.div
                 className="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700 hover:shadow-xl transition-all duration-300"
                 variants={itemVariants}
                 whileHover={{ scale: 1.02, y: -2 }}
@@ -259,16 +283,21 @@ const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${lat},${
                     </div>
                   </div>
                   <div className="flex-1 min-w-0">
-                    <h3 className="font-bold text-gray-900 dark:text-white mb-2">Email Us</h3>
-                    <p className="text-gray-600 dark:text-gray-300 text-sm break-all">
+                    <h3 className="font-bold text-gray-900 dark:text-white mb-2">
+                      Email Us
+                    </h3>
+                    <a
+                      href="mailto:surevacancy.hr@gmail.com"
+                      className="text-gray-600 dark:text-gray-300 hover:text-emerald-500 dark:hover:text-emerald-400 text-sm break-all transition-colors duration-200 cursor-pointer block"
+                    >
                       surevacancy.hr@gmail.com
-                    </p>
+                    </a>
                   </div>
                 </div>
               </motion.div>
 
               {/* Phone card */}
-              <motion.div 
+              <motion.div
                 className="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700 hover:shadow-xl transition-all duration-300"
                 variants={itemVariants}
                 whileHover={{ scale: 1.02, y: -2 }}
@@ -280,14 +309,18 @@ const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${lat},${
                     </div>
                   </div>
                   <div className="flex-1">
-                    <h3 className="font-bold text-gray-900 dark:text-white mb-2">Call Us</h3>
-                    <p className="text-gray-600 dark:text-gray-300 text-sm">+91 9332344995</p>
+                    <h3 className="font-bold text-gray-900 dark:text-white mb-2">
+                      Call Us
+                    </h3>
+                    <p className="text-gray-600 dark:text-gray-300 text-sm">
+                      +91 9332344995
+                    </p>
                   </div>
                 </div>
               </motion.div>
-              
+
               {/* Address card */}
-              <motion.div 
+              <motion.div
                 className="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700 hover:shadow-xl transition-all duration-300"
                 variants={itemVariants}
                 whileHover={{ scale: 1.02, y: -2 }}
@@ -298,27 +331,31 @@ const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${lat},${
                       <MapPin className="h-6 w-6 text-purple-600 dark:text-purple-500" />
                     </div>
                   </div>
-                 <div className="flex-1">
-      <h3 className="font-bold text-gray-900 dark:text-white mb-2">Visit Us</h3>
-      <div 
-        className="cursor-pointer group transition-all duration-200 hover:bg-gray-50 dark:hover:bg-gray-800 p-2 rounded-lg -m-2"
-        onClick={handleLocationClick}
-        title="Click to open in Google Maps"
-      >
-        <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-          Sure Vacancy,<br />
-          1st floor - Rani Niwas 39,<br />
-          Lala Lajpat Rai Road, Ashrampara,<br />
-          Siliguri-734001, West Bengal
-        </p>
-      </div>
-    </div>
-
+                  <div className="flex-1">
+                    <h3 className="font-bold text-gray-900 dark:text-white mb-2">
+                      Visit Us
+                    </h3>
+                    <div
+                      className="cursor-pointer group transition-all duration-200 hover:bg-gray-50 dark:hover:bg-gray-800 p-2 rounded-lg -m-2"
+                      onClick={handleLocationClick}
+                      title="Click to open in Google Maps"
+                    >
+                      <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                        Sure Vacancy,
+                        <br />
+                        1st floor - Rani Niwas 39,
+                        <br />
+                        Lala Lajpat Rai Road, Ashrampara,
+                        <br />
+                        Siliguri-734001, West Bengal
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </motion.div>
 
               {/* Business hours card */}
-              <motion.div 
+              <motion.div
                 className="bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-emerald-900/20 dark:to-teal-900/20 p-6 rounded-2xl border border-emerald-200 dark:border-emerald-800"
                 variants={itemVariants}
               >
@@ -329,7 +366,9 @@ const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${lat},${
                     </div>
                   </div>
                   <div className="flex-1">
-                    <h3 className="font-bold text-gray-900 dark:text-white mb-2">Business Hours</h3>
+                    <h3 className="font-bold text-gray-900 dark:text-white mb-2">
+                      Business Hours
+                    </h3>
                     <div className="text-gray-600 dark:text-gray-300 text-sm space-y-1">
                       <p>Monday - Saturday: 10:00 AM - 8:00 PM</p>
                       <p>Sunday: Closed</p>
@@ -339,7 +378,7 @@ const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${lat},${
               </motion.div>
 
               {/* Response time info */}
-              <motion.div 
+              <motion.div
                 className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 p-6 rounded-2xl border border-blue-200 dark:border-blue-800"
                 variants={itemVariants}
               >
@@ -350,9 +389,12 @@ const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${lat},${
                     </div>
                   </div>
                   <div className="flex-1">
-                    <h3 className="font-bold text-gray-900 dark:text-white mb-2">Quick Response</h3>
+                    <h3 className="font-bold text-gray-900 dark:text-white mb-2">
+                      Quick Response
+                    </h3>
                     <p className="text-gray-600 dark:text-gray-300 text-sm">
-                      We typically respond to all inquiries within 24 hours during business days.
+                      We typically respond to all inquiries within 24 hours
+                      during business days.
                     </p>
                   </div>
                 </div>

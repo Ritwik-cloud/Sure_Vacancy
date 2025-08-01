@@ -27,12 +27,12 @@ const cardVariants = {
 };
 
 const sectors = [
-  { title: "Hospitality", image: hospitalityImg, alt: "Business Process Outsourcing services" },
-  { title: "Logistics", image: logisticImg, alt: "Textile industry and manufacturing" },
-  { title: "Retail", image: retailImg , alt: "Fast-moving consumer goods sector" },
-  { title: "Real Estate", image: realstateImg, alt: "Real estate and property management" },
-  { title: "Healthcare and Pharma", image: healthcareImg, alt: "Computer hardware and electronics" },
-  { title: "IT and Software", image: itImg, alt: "Information technology and software development" },
+  { title: "Hospitality and Hotel", image: hospitalityImg, alt: "Business Process Outsourcing services", readmore: "https://surevacancyjobs.blogspot.com/2025/07/empowering-hospitality-careers-how-sure.html" },
+  { title: "Logistics and Warehouse", image: logisticImg, alt: "Textile industry and manufacturing",  readmore: "https://surevacancyjobs.blogspot.com/2025/07/connecting-talent-with-opportunity-in.html" },
+  { title: "Manufacturing and Retail", image: retailImg , alt: "Fast-moving consumer goods sector",  readmore: "https://surevacancyjobs.blogspot.com/2025/07/find-jobs-in-manufacturing-retail-with.html"},
+  { title: "Real Estate and Infrastructure", image: realstateImg, alt: "Real estate and property management",  readmore:"https://surevacancyjobs.blogspot.com/2025/08/real-estate-infrastructure-growing.html" },
+  { title: "Healthcare and Pharma", image: healthcareImg, alt: "Computer hardware and electronics",  readmore:"https://surevacancyjobs.blogspot.com/2025/08/build-career-in-healthcare-pharma-with.html" },
+  { title: "IT and Software", image: itImg, alt: "Information technology and software development",  readmore:"https://surevacancyjobs.blogspot.com/2025/08/it-software-job-placements-by-sure.html" },
 ];
 
 const Sector = () => {
@@ -61,6 +61,7 @@ const Sector = () => {
                 title={sector.title}
                 image={sector.image}
                 alt={sector.alt}
+                link={sector.readmore}
               />
             </motion.div>
           ))}

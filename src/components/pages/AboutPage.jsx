@@ -7,7 +7,7 @@ import meetingImg from '../../assets/about-img.webp';
 const stats = [
   {
     icon: <Users className="h-6 w-6 text-emerald-600" />,
-    value: "10,000+",
+    value: "5,000+",
     label: "Clients Served",
     description: "Professionals who found their dream careers"
   },
@@ -19,13 +19,13 @@ const stats = [
   },
   {
     icon: <Target className="h-6 w-6 text-emerald-600" />,
-    value: "15+",
+    value: "5+",
     label: "Years Experience",
     description: "Of career consulting excellence"
   },
   {
     icon: <TrendingUp className="h-6 w-6 text-emerald-600" />,
-    value: "45%",
+    value: "20-45%",
     label: "Average Salary Increase",
     description: "For successfully placed candidates"
   }

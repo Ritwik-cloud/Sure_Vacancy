@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { memo } from "react";
 import {
   Briefcase,
   Mail,
@@ -8,13 +8,13 @@ import {
   Twitter,
   Linkedin,
   Instagram,
-} from 'lucide-react';
-import { Link } from 'react-router-dom';
-import logo from '../../assets/surevacancylogo.webp'
+} from "lucide-react";
+import { Link } from "react-router-dom";
+import logo from "../../assets/surevacancylogo.webp";
 // import { MapPin } from 'lucide-react';
 
-  
-const address = "Sure Vacancy, 1st floor - Rani Niwas 39, Lala Lajpat Rai Road, Ashrampara, Siliguri-734001, West Bengal";
+const address =
+  "Sure Vacancy, 1st floor - Rani Niwas 39, Lala Lajpat Rai Road, Ashrampara, Siliguri-734001, West Bengal";
 const encodedAddress = encodeURIComponent(address);
 
 // With coordinates (more accurate)
@@ -26,20 +26,18 @@ const handleLocationClick = () => {
   // For mobile devices, try to open native apps
   if (/Android/i.test(navigator.userAgent)) {
     // Correct Android geo URL with your coordinates
-    window.open(`geo:${lat},${lng}?q=${lat},${lng}(Sure Vacancy)`, '_blank');
+    window.open(`geo:${lat},${lng}?q=${lat},${lng}(Sure Vacancy)`, "_blank");
   } else if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
     // Correct iOS Maps URL
-    window.open(`maps://?q=${lat},${lng}`, '_blank');
+    window.open(`maps://?q=${lat},${lng}`, "_blank");
   } else {
     // Fallback to web version
-    window.open(googleMapsUrl, '_blank');
+    window.open(googleMapsUrl, "_blank");
   }
 };
 
-
-
 // Footer component for site-wide information and navigation
- const Footer = () => {
+const Footer = () => {
   return (
     <footer className="bg-gray-900 text-white pt-16 pb-8">
       <div className="container mx-auto px-4 md:px-6">
@@ -48,89 +46,162 @@ const handleLocationClick = () => {
           {/* Company Info & Social */}
           <div>
             <div className="flex items-center mb-6">
-               <img src={logo} alt="Company Logo" className="h-9 w-9 rounded-full mr-2" />
+              <img
+                src={logo}
+                alt="Company Logo"
+                className="h-9 w-9 rounded-full mr-2"
+              />
               <span className="ml-2 text-xl font-bold">Sure Vacancy</span>
             </div>
             <p className="text-gray-400 mb-6">
-              Professional career guidance to help you navigate your career journey with confidence.
+              Professional career guidance to help you navigate your career
+              journey with confidence.
             </p>
             {/* Social Media Icons */}
             <div className="flex space-x-4">
-              <a href="https://www.facebook.com/surevacancy/"  target='_blank'  className="p-2 bg-gray-800 rounded-full hover:bg-emerald-600 transition-colors" aria-label="Facebook">
+              <a
+                href="https://www.facebook.com/surevacancy/"
+                target="_blank"
+                className="p-2 bg-gray-800 rounded-full hover:bg-emerald-600 transition-colors"
+                aria-label="Facebook"
+              >
                 <Facebook className="h-5 w-5" />
               </a>
-              <a href="https://www.linkedin.com/company/surevacancy/"  target='_blank'  className="p-2 bg-gray-800 rounded-full hover:bg-emerald-600 transition-colors" aria-label="LinkedIn">
+              <a
+                href="https://www.linkedin.com/company/surevacancy/"
+                target="_blank"
+                className="p-2 bg-gray-800 rounded-full hover:bg-emerald-600 transition-colors"
+                aria-label="LinkedIn"
+              >
                 <Linkedin className="h-5 w-5" />
               </a>
-              <a href="https://www.instagram.com/surevacancy?igsh=MWxiZDFwODl4c2ZnNA==" target='_blank' className="p-2 bg-gray-800 rounded-full hover:bg-emerald-600 transition-colors" aria-label="Instagram">
+              <a
+                href="https://www.instagram.com/surevacancy?igsh=MWxiZDFwODl4c2ZnNA=="
+                target="_blank"
+                className="p-2 bg-gray-800 rounded-full hover:bg-emerald-600 transition-colors"
+                aria-label="Instagram"
+              >
                 <Instagram className="h-5 w-5" />
               </a>
             </div>
           </div>
-          
+
           {/* Quick Links */}
           <div>
             <h3 className="text-lg font-semibold mb-6">Quick Links</h3>
             <ul className="space-y-3">
               <li>
-                <a href="#" className="text-gray-400 hover:text-emerald-400 transition-colors">Home</a>
+                <a
+                  href="#"
+                  className="text-gray-400 hover:text-emerald-400 transition-colors"
+                >
+                  Home
+                </a>
               </li>
               <li>
-                <a href="#services" className="text-gray-400 hover:text-emerald-400 transition-colors">Services</a>
+                <a
+                  href="#services"
+                  className="text-gray-400 hover:text-emerald-400 transition-colors"
+                >
+                  Services
+                </a>
               </li>
               <li>
-                <Link to="/jobs" className="text-gray-400 hover:text-emerald-400 transition-colors">
-                Job Listings
-               </Link>
+                <Link
+                  to="/jobs"
+                  className="text-gray-400 hover:text-emerald-400 transition-colors"
+                >
+                  Job Listings
+                </Link>
               </li>
               <li>
-                <a href="#" className="text-gray-400 hover:text-emerald-400 transition-colors">About Us</a>
+                <a
+                  href="#"
+                  className="text-gray-400 hover:text-emerald-400 transition-colors"
+                >
+                  About Us
+                </a>
               </li>
               <li>
-                <a href="#" className="text-gray-400 hover:text-emerald-400 transition-colors">Contact</a>
+                <a
+                  href="#"
+                  className="text-gray-400 hover:text-emerald-400 transition-colors"
+                >
+                  Contact
+                </a>
               </li>
             </ul>
           </div>
-          
+
           {/* Services List */}
           <div>
             <h3 className="text-lg font-semibold mb-6">Services</h3>
             <ul className="space-y-3">
               <li>
-                <a href="#" className="text-gray-400 hover:text-emerald-400 transition-colors">Resume Building</a>
+                <a
+                  href="#"
+                  className="text-gray-400 hover:text-emerald-400 transition-colors"
+                >
+                  Resume Building
+                </a>
               </li>
               <li>
-                <a href="#" className="text-gray-400 hover:text-emerald-400 transition-colors">Career Coaching</a>
+                <a
+                  href="#"
+                  className="text-gray-400 hover:text-emerald-400 transition-colors"
+                >
+                  Career Coaching
+                </a>
               </li>
               <li>
-                <a href="#" className="text-gray-400 hover:text-emerald-400 transition-colors">Skill Assessment</a>
+                <a
+                  href="#"
+                  className="text-gray-400 hover:text-emerald-400 transition-colors"
+                >
+                  Skill Assessment
+                </a>
               </li>
               <li>
-                <a href="#" className="text-gray-400 hover:text-emerald-400 transition-colors">Interview Preparation</a>
+                <a
+                  href="#"
+                  className="text-gray-400 hover:text-emerald-400 transition-colors"
+                >
+                  Interview Preparation
+                </a>
               </li>
               <li>
-                <a href="#" className="text-gray-400 hover:text-emerald-400 transition-colors">Professional Training</a>
+                <a
+                  href="#"
+                  className="text-gray-400 hover:text-emerald-400 transition-colors"
+                >
+                  Professional Training
+                </a>
               </li>
               <li>
-                <a href="#" className="text-gray-400 hover:text-emerald-400 transition-colors">Career Transition</a>
+                <a
+                  href="#"
+                  className="text-gray-400 hover:text-emerald-400 transition-colors"
+                >
+                  Career Transition
+                </a>
               </li>
             </ul>
           </div>
-          
+
           {/* Contact Information */}
           <div>
             <h3 className="text-lg font-semibold mb-6">Contact Us</h3>
             <div className="space-y-4">
               {/* Address */}
-             <div 
-      className="flex items-start cursor-pointer hover:bg-gray-800 p-3 rounded-lg transition-colors"
-      onClick={handleLocationClick}
-    >
-      
-      <p className="text-gray-400 hover:text-emerald-400 transition-colors">
-        Sure Vacancy, 1st floor - Rani Niwas 39, Lala Lajpat Rai Road, Ashrampara, Siliguri-734001, West Bengal
-      </p>
-    </div>
+              <div
+                className="flex items-start cursor-pointer hover:bg-gray-800 p-3 rounded-lg transition-colors"
+                onClick={handleLocationClick}
+              >
+                <p className="text-gray-400 hover:text-emerald-400 transition-colors">
+                  Sure Vacancy, 1st floor - Rani Niwas 39, Lala Lajpat Rai Road,
+                  Ashrampara, Siliguri-734001, West Bengal
+                </p>
+              </div>
               {/* Phone */}
               <div className="flex items-center">
                 <Phone className="h-5 w-5 text-emerald-400 mr-3" />
@@ -139,28 +210,49 @@ const handleLocationClick = () => {
               {/* Email */}
               <div className="flex items-center">
                 <Mail className="h-5 w-5 text-emerald-400 mr-3" />
-                <p className="text-gray-400">surevacancy.hr@gmail.com</p>
+                <a
+                  href="mailto:surevacancy.hr@gmail.com"
+                  className="text-gray-400 hover:text-emerald-400 transition-colors duration-200 cursor-pointer"
+                >
+                  surevacancy.hr@gmail.com
+                </a>
               </div>
             </div>
           </div>
         </div>
-        
+
         {/* Footer bottom bar: copyright and policies */}
-       <div className="border-t border-gray-800 pt-8">
-  <div className="flex flex-col md:flex-row justify-between items-center">
-    {/* Copyright */}
-    <p className="text-gray-500 text-sm">
-      &copy; {new Date().getFullYear()} Sure Vacancy. All rights reserved.
-    </p>
-    {/* Policy links */}
-    <div className="flex flex-col md:flex-row md:items-center md:space-x-4 mt-4 md:mt-0 space-y-2 md:space-y-0">
-      <div className="flex space-x-4">
-        <a href="#" className="text-gray-500 hover:text-emerald-400 text-sm">Privacy Policy</a>
-        <a href="#" className="text-gray-500 hover:text-emerald-400 text-sm">Terms of Service</a>
-        <a href="#" className="text-gray-500 hover:text-emerald-400 text-sm">Cookie Policy</a>
-      </div>
-      {/* Developed by */}
-      {/* <div className="mt-2 md:mt-0">
+        <div className="border-t border-gray-800 pt-8">
+          <div className="flex flex-col md:flex-row justify-between items-center">
+            {/* Copyright */}
+            <p className="text-gray-500 text-sm">
+              &copy; {new Date().getFullYear()} Sure Vacancy. All rights
+              reserved.
+            </p>
+            {/* Policy links */}
+            <div className="flex flex-col md:flex-row md:items-center md:space-x-4 mt-4 md:mt-0 space-y-2 md:space-y-0">
+              <div className="flex space-x-4">
+                <a
+                  href="#"
+                  className="text-gray-500 hover:text-emerald-400 text-sm"
+                >
+                  Privacy Policy
+                </a>
+                <a
+                  href="#"
+                  className="text-gray-500 hover:text-emerald-400 text-sm"
+                >
+                  Terms of Service
+                </a>
+                <a
+                  href="#"
+                  className="text-gray-500 hover:text-emerald-400 text-sm"
+                >
+                  Cookie Policy
+                </a>
+              </div>
+              {/* Developed by */}
+              {/* <div className="mt-2 md:mt-0">
         <span className="text-gray-500 text-sm">
           Developed by{" "}
           <a
@@ -173,13 +265,11 @@ const handleLocationClick = () => {
           </a>
         </span>
       </div> */}
-    </div>
-  </div>
-</div>
-
-
+            </div>
+          </div>
+        </div>
       </div>
     </footer>
   );
 };
-export default memo(Footer)
+export default memo(Footer);
