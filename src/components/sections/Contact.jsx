@@ -313,7 +313,7 @@ const Contact = () => {
                       Call Us
                     </h3>
                     <p className="text-gray-600 dark:text-gray-300 text-sm">
-                      +91 9332344995
+                      +91 9239712340
                     </p>
                   </div>
                 </div>

@@ -175,7 +175,7 @@ import { useNavigate } from 'react-router-dom';
                 <div className="bg-white dark:bg-gray-800 p-2 rounded-full shadow-md">
                   <Users className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
                 </div>
-                <p className="ml-2 text-gray-700 dark:text-gray-300 font-medium">5k+ Happy Clients</p>
+                <p className="ml-2 text-gray-700 dark:text-gray-300 font-medium">2k+ Happy Clients</p>
               </motion.div>
             </motion.div>
           </div>

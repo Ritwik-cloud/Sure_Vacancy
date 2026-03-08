@@ -7,7 +7,7 @@ import meetingImg from '../../assets/about-img.webp';
 const stats = [
   {
     icon: <Users className="h-6 w-6 text-emerald-600" />,
-    value: "5,000+",
+    value: "2,000+",
     label: "Clients Served",
     description: "Professionals who found their dream careers"
   },

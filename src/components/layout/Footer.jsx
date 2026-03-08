@@ -205,7 +205,7 @@ const Footer = () => {
               {/* Phone */}
               <div className="flex items-center">
                 <Phone className="h-5 w-5 text-emerald-400 mr-3" />
-                <p className="text-gray-400">+91 9332344995</p>
+                <p className="text-gray-400">+91 9239712340</p>
               </div>
               {/* Email */}
               <div className="flex items-center">

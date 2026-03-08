@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Plus, Briefcase } from 'lucide-react';
 import { JobForm } from '../admin/JobForm';
 import { JobList } from '../admin/JobList';
-import service from '../../appwrite/database'; //  Appwrite service
+import service from '../../appwrite/database'; 
 import { useNavigate } from 'react-router-dom';
 import authService from '../../appwrite/auth'; // Adjust the path if needed
 import AdminLogin from '../admin/AdminLogin';
